@@ -5,9 +5,9 @@ class Crain : public CraneCrane
 {
 private:
     ev3dev::touch_sensor touch_q;
-    ev3dev::motor a;
-    ev3dev::motor b; 
-    ev3dev::motor c;
+    ev3dev::motor a;//위 아래
+    ev3dev::motor b;//좌 우
+    ev3dev::motor c;//집게
     ev3dev::ultrasonic_sensor ultra_q;
     
 public:
@@ -71,7 +71,7 @@ public:
     
     virtual int b_get_position_sp()
     {
-        return 350;
+        return 300;
     }
     
     virtual int c_get_position_sp()
@@ -142,37 +142,36 @@ void Crain::example_code()
         std::cout << a << std::endl;
     }*/
     
-    a.reset();
-       
-    b.reset(); 
+    /*
     
-    while(abs(a.position()) != abs(a_get_position_sp()))
+    b.reset(); 
+    a.reset();
+      
+    while(abs(b.position()) != abs(b_get_position_sp()))
     {
-        while(abs(b.position()) != abs(b_get_position_sp()))
+        if(abs(a.position()) != abs(a_get_position_sp()))
         {
             if(ultra_q.distance_centimeters() == 5)
             {   
-                //a.reset();
-                a.set_speed_sp(get_speed());
-                a.set_position_sp(-1*a_get_position_sp());
-                a.run_to_abs_pos();
-                a.set_stop_action("hold");
-                a.stop();
+                
+                b.set_speed_sp(get_speed());
+                b.set_position_sp(-1*a_get_position_sp());
+                b.run_to_abs_pos();
+                b.set_stop_action("hold");
+                b.stop();
             }
             
-            b.set_speed_sp(get_speed());
-            b.set_position_sp(-1*b_get_position_sp());
-            b.run_to_abs_pos();
-            b.set_stop_action("hold");
-            b.stop();
+            a.set_speed_sp(get_speed());
+            a.set_position_sp(-1*b_get_position_sp());
+            a.run_to_abs_pos();
+            a.set_stop_action("hold");
+            a.stop();
         }
         
-    }
-    
+    }*/
     
     b.reset();
-    
-    while(b.position() < b_get_position_sp())
+    while(abs(b.position()) != abs(b_get_position_sp()))
     {
         b.set_speed_sp(get_speed());
         b.set_position_sp(-1*b_get_position_sp());
@@ -183,8 +182,7 @@ void Crain::example_code()
     
         
     a.reset();
-        
-    while(a.position() != a_get_position_sp())
+    while(abs(a.position()) != abs(a_get_position_sp()))
     {
         a.set_speed_sp(get_speed());
         a.set_position_sp(-1*a_get_position_sp());
@@ -194,8 +192,7 @@ void Crain::example_code()
     }
     
     c.reset();
-    
-    while(c.position() != c_get_position_sp())
+    while(abs(c.position()) != abs(c_get_position_sp()))
     {
         c.set_speed_sp(get_speed());
         c.set_position_sp(-1*c_get_position_sp());
@@ -203,8 +200,7 @@ void Crain::example_code()
         c.set_stop_action("hold");
         c.stop();
     }
-        
-        
+
     a.stop();
     b.stop();
 }
