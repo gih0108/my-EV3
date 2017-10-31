@@ -122,6 +122,7 @@ public:
     
 public:
     void example_code();
+    //void crain();
 };
 
 void Crain::example_code()
@@ -134,7 +135,75 @@ void Crain::example_code()
     set_escape(ev3dev::button::back.pressed());
     set_enter(ev3dev::button::enter.pressed());
     
-    /*
+    b.reset();
+    a.reset();
+    
+    int count = 0;
+    
+    int dist = 0;
+    
+    while((abs(b.position()) < 350) && (count == 0))
+    {
+        dist++;
+        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
+        {
+            count++;
+        }
+        else
+        {
+            b.set_speed_sp(get_speed());
+            b.set_position_sp(-1*dist);
+            b.run_to_abs_pos();
+            b.set_stop_action("hold");
+            b.stop();
+        }
+    }
+    
+    while(abs(a.position()) != abs(a_get_position_sp()))
+    {
+        
+        a.set_speed_sp(get_speed());
+        a.set_position_sp(-1*a_get_position_sp());
+        a.run_to_abs_pos();
+        a.set_stop_action("hold");
+        a.stop();
+        
+    }
+    
+    
+    /* fourth
+    b.reset();
+    a.reset();
+    
+    int count = 0;
+    int dist = 0;
+    
+    while((abs(b.position()) < 350) && (count == 0))
+    {
+        dist++;
+        
+        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
+        {
+            
+            a.set_speed_sp(get_speed());
+            a.set_position_sp(-1*a_get_position_sp());
+            a.run_to_abs_pos();
+            a.set_stop_action("hold");
+            a.stop();
+            
+            count++;
+        }
+        else
+        {
+            b.set_speed_sp(get_speed());
+            b.set_position_sp(-1*dist);
+            b.run_to_abs_pos();
+            b.set_stop_action("hold");
+            b.stop();
+        }
+    }*/
+    
+    /* third
     while (1)
     {
         float a = 0 ;
@@ -142,7 +211,7 @@ void Crain::example_code()
         std::cout << a << std::endl;
     }*/
     
-    
+    /*second
     a.reset();
     b.reset();
     while(abs(b.position()) < 350)
@@ -151,7 +220,7 @@ void Crain::example_code()
         {
             while(abs(b.position()) != abs(b_get_position_sp()))
             {
-                if(5< ultra_q.distance_centimeters() < 10)
+                if(5 < ultra_q.distance_centimeters() < 10)
                 {   
                     
                     a.set_speed_sp(get_speed());
@@ -159,7 +228,7 @@ void Crain::example_code()
                     a.run_to_abs_pos();
                     a.set_stop_action("hold");
                     a.stop();
-                    std::cout << "a" << std::endl;
+                    //std::cout << "a" << std::endl;
                 }
                 
                 b.set_speed_sp(get_speed());
@@ -167,13 +236,13 @@ void Crain::example_code()
                 b.run_to_abs_pos();
                 b.set_stop_action("hold");
                 b.stop();
-                std::cout << "b" << std::endl;
+                //std::cout << "b" << std::endl;
             }
             
         }
-    }
+    }*/
     
-    /*
+    /* first
     b.reset();
     while(abs(b.position()) != abs(b_get_position_sp()))
     {
@@ -209,6 +278,11 @@ void Crain::example_code()
     b.stop();
 }
 
+
+/*
+void Crain::cali(){
+    
+}*/
 int main()
 {     
     Crain crain;
