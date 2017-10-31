@@ -143,7 +143,6 @@ void Crain::example_code()
     }*/
     
     
-    
     a.reset();
     b.reset();
     while(abs(b.position()) < 350)
@@ -152,7 +151,7 @@ void Crain::example_code()
         {
             while(abs(b.position()) != abs(b_get_position_sp()))
             {
-                if(ultra_q.distance_centimeters() == 5)
+                if(5< ultra_q.distance_centimeters() < 10)
                 {   
                     
                     a.set_speed_sp(get_speed());
@@ -160,6 +159,7 @@ void Crain::example_code()
                     a.run_to_abs_pos();
                     a.set_stop_action("hold");
                     a.stop();
+                    std::cout << "a" << std::endl;
                 }
                 
                 b.set_speed_sp(get_speed());
@@ -167,6 +167,7 @@ void Crain::example_code()
                 b.run_to_abs_pos();
                 b.set_stop_action("hold");
                 b.stop();
+                std::cout << "b" << std::endl;
             }
             
         }
