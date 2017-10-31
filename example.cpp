@@ -76,7 +76,7 @@ public:
     
     virtual int c_get_position_sp()
     {
-        return 50;
+        return 30;
     }
     
     virtual void set_down(bool val)
@@ -158,18 +158,29 @@ void Crain::example_code()
         }
     }
     
-    while((abs(a.position()) <= abs(140))||(abs(a.position()) >= abs(70)))
+    std::cout<<"a"<<std::endl;
+    
+    while( (abs(a.position()) >= abs(130)) || (abs(a.position()) <= abs(70)) )
     {
+        //std::cout<<"b"<<std::endl;
         a.set_speed_sp(get_speed());
         a.set_position_sp(-1*a_get_position_sp());
         a.run_to_abs_pos();
         a.set_stop_action("hold");
         a.stop();
+        //std::cout<<"c"<<std::endl;
     }
     
     c.reset();
     
-    
+    while( (abs(c.position()) >= abs(20))  || (abs(c.position()) <= abs(40)) )
+    {
+        c.set_speed_sp(get_speed());
+        c.set_position_sp(-1*c_get_position_sp());
+        c.run_to_abs_pos();
+        c.set_stop_action("hold");
+        c.stop();
+    }
     
     
     /* fourth
