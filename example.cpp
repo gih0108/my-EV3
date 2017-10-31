@@ -139,7 +139,6 @@ void Crain::example_code()
     a.reset();
     
     int count = 0;
-    
     int dist = 0;
     
     while((abs(b.position()) < 350) && (count == 0))
@@ -159,16 +158,18 @@ void Crain::example_code()
         }
     }
     
-    while(abs(a.position()) != abs(a_get_position_sp()))
+    while((abs(a.position()) <= abs(140))||(abs(a.position()) >= abs(70)))
     {
-        
         a.set_speed_sp(get_speed());
         a.set_position_sp(-1*a_get_position_sp());
         a.run_to_abs_pos();
         a.set_stop_action("hold");
         a.stop();
-        
     }
+    
+    c.reset();
+    
+    
     
     
     /* fourth
