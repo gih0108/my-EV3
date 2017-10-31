@@ -142,16 +142,33 @@ void Crain::example_code()
         std::cout << a << std::endl;
     }*/
     
-    if(ultra_q.distance_centimeters() == 5)
-    {   
-        a.reset();
-        a.set_speed_sp(get_speed());
-        a.set_position_sp(-1*a_get_position_sp());
-        a.run_to_abs_pos();
-        a.set_stop_action("hold");
-        a.stop();
+    a.reset();
+       
+    b.reset(); 
+    
+    while(abs(a.position()) != abs(a_get_position_sp()))
+    {
+        while(abs(b.position()) != abs(b_get_position_sp()))
+        {
+            if(ultra_q.distance_centimeters() == 5)
+            {   
+                //a.reset();
+                a.set_speed_sp(get_speed());
+                a.set_position_sp(-1*a_get_position_sp());
+                a.run_to_abs_pos();
+                a.set_stop_action("hold");
+                a.stop();
+            }
+            
+            b.set_speed_sp(get_speed());
+            b.set_position_sp(-1*b_get_position_sp());
+            b.run_to_abs_pos();
+            b.set_stop_action("hold");
+            b.stop();
+        }
         
     }
+    
     
     b.reset();
     

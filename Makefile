@@ -5,7 +5,7 @@ ev3dev.a: ev3dev.cpp
 	arm-linux-gnueabi-g++-4.7 -c ev3dev.cpp -o ev3dev.o -std=c++11 -D_GLIBCXX_USE_NANOSLEEP
 	ar -r libev3dev.a ev3dev.o
 
-original1.o: example.cpp
+example.o: example.cpp
 		arm-linux-gnueabi-g++-4.7 -c example.cpp -o example.o -std=c++11 -D_GLIBCXX_USE_NANOSLEEP
 		
 h_crane.o: h_crane.cpp
