@@ -142,7 +142,6 @@ void Crain::example_code()
         std::cout << a << std::endl;
     }*/
     
-    /*
     
     b.reset(); 
     a.reset();
@@ -168,8 +167,9 @@ void Crain::example_code()
             a.stop();
         }
         
-    }*/
+    }
     
+    /*
     b.reset();
     while(abs(b.position()) != abs(b_get_position_sp()))
     {
@@ -199,7 +199,7 @@ void Crain::example_code()
         c.run_to_abs_pos();
         c.set_stop_action("hold");
         c.stop();
-    }
+    } */
 
     a.stop();
     b.stop();
