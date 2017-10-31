@@ -8,10 +8,11 @@ private:
     ev3dev::motor a;
     ev3dev::motor b; 
     ev3dev::motor c;
+    ev3dev::ultrasonic_sensor ultra_q;
     
 public:
     // Hardware Configuration
-    Crain():m_speed(0), touch_q(ev3dev::INPUT_2), a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_A)
+    Crain():m_speed(0), touch_q(ev3dev::INPUT_2), a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_A), ultra_q(ev3dev::INPUT_3)
     {
         
     }
@@ -21,6 +22,11 @@ public:
     bool get_touch_pressed()
     {
         return touch_q.is_pressed();
+    }
+    
+    float get_ultrasonic_distance()
+    {
+        return ultra_q.distance_centimeters();
     }
     
     virtual bool get_down()
@@ -70,7 +76,7 @@ public:
     
     virtual int c_get_position_sp()
     {
-        return 30;
+        return 50;
     }
     
     virtual void set_down(bool val)
@@ -107,12 +113,20 @@ public:
         m_speed = val;    
     }
     
+    /*
+    virtual float set_ultra_distance_sp(float val)
+    {
+        return 10.0;
+    }*/
+    // 집게와 물체사이의 거리가 10.0cm차이가 나면..
+    
 public:
     void example_code();
 };
 
 void Crain::example_code()
 { //This function is for example, you should develop your own logics
+
     set_down(ev3dev::button::down.pressed());
     set_up(ev3dev::button::up.pressed());
     set_right(ev3dev::button::right.pressed());
@@ -123,7 +137,7 @@ void Crain::example_code()
     
     b.reset();
     
-    while(abs(b.position()) != abs(b_get_position_sp()))
+    while(b.position() < b_get_position_sp())
     {
         b.set_speed_sp(get_speed());
         b.set_position_sp(-1*b_get_position_sp());
@@ -135,7 +149,7 @@ void Crain::example_code()
         
     a.reset();
         
-    while(abs(a.position()) != abs(a_get_position_sp()))
+    while(a.position() != a_get_position_sp())
     {
         a.set_speed_sp(get_speed());
         a.set_position_sp(-1*a_get_position_sp());
@@ -144,10 +158,9 @@ void Crain::example_code()
         a.stop();
     }
     
-    
     c.reset();
     
-    while(abs(c.position()) != abs(c_get_position_sp()))
+    while(c.position() != c_get_position_sp())
     {
         c.set_speed_sp(get_speed());
         c.set_position_sp(-1*c_get_position_sp());
@@ -155,7 +168,8 @@ void Crain::example_code()
         c.set_stop_action("hold");
         c.stop();
     }
-
+        
+        
     a.stop();
     b.stop();
 }
@@ -165,7 +179,10 @@ int main()
     Crain crain;
     while(true){
         
-        
+        /*
+        if(crain.get_ultrasonic_pressed()==true)
+        {
+        }*/
         if(crain.get_touch_pressed()==true){ 
             
         crain.example_code(); //This line is for example, you should erase this ex_code in your 'real code' 

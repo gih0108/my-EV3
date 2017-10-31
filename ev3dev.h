@@ -417,6 +417,7 @@ public:
   static constexpr char mode_us_dist_cm[] = "US-DIST-CM";
 
   // Continuous measurement in inches.
+  // 인치 단위의 연속 측정.
   static constexpr char mode_us_dist_in[] = "US-DIST-IN";
 
   // Listen.
@@ -426,6 +427,7 @@ public:
   static constexpr char mode_us_si_cm[] = "US-SI-CM";
 
   // Single measurement in inches.
+  // 인치 단위의 단일 측정.
   static constexpr char mode_us_si_in[] = "US-SI-IN";
 
 
@@ -438,6 +440,7 @@ public:
 
   // Measurement of the distance detected by the sensor,
   // in inches.
+  // 센서에 의해 감지 된 거리의 측정,
   float distance_inches(bool do_set_mode = true) {
     if (do_set_mode) set_mode(mode_us_dist_in);
     return float_value(0);
@@ -445,6 +448,8 @@ public:
 
   // Value indicating whether another ultrasonic sensor could
   // be heard nearby.
+  // 다른 초음파 센서가 가능한지 여부를 나타내는 값
+  // 근처에서 들립니다.
   bool other_sensor_present(bool do_set_mode = true) {
     if (do_set_mode) set_mode(mode_us_listen);
     return value(0);
