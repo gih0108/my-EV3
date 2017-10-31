@@ -160,7 +160,7 @@ void Crain::example_code()
     
     //std::cout<<"a"<<std::endl;
     
-    while((abs(a.position()) >= abs(130)) || (abs(a.position()) <= abs(70)))
+    while(((abs(a.position()) >= abs(130)) || (abs(a.position()) <= abs(70))) && ((abs(c.position()) >= abs(20)) || (abs(c.position()) <= abs(40))))
     {
         //std::cout<<"b"<<std::endl;
         a.set_speed_sp(get_speed());
@@ -168,11 +168,17 @@ void Crain::example_code()
         a.run_to_abs_pos();
         a.set_stop_action("hold");
         a.stop();
+        c.set_speed_sp(get_speed());
+        c.set_position_sp(-1*c_get_position_sp());
+        c.run_to_abs_pos();
+        c.set_stop_action("hold");
+        c.stop();
         //std::cout<<"c"<<std::endl;
     }
     
     c.reset();
     
+    /*
     while((abs(c.position()) >= abs(20)) || (abs(c.position()) <= abs(40)))
     {
         c.set_speed_sp(get_speed());
@@ -180,7 +186,7 @@ void Crain::example_code()
         c.run_to_abs_pos();
         c.set_stop_action("hold");
         c.stop();
-    }
+    }*/
     
     
     /* fourth
