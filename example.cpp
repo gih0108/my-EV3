@@ -115,25 +115,28 @@ public:
     
 public:
     void example_code();
+    
+    void left_right(int sp);
+    void up_down(int sp);
+    void open_close(int sp);
 };
 
+
+
 void Crain::example_code()
-{ //This function is for example, you should develop your own logics
-    set_down(ev3dev::button::down.pressed());
-    set_up(ev3dev::button::up.pressed());
-    set_right(ev3dev::button::right.pressed());
-    set_left(ev3dev::button::left.pressed());
-    set_escape(ev3dev::button::back.pressed());
-    set_enter(ev3dev::button::enter.pressed());
+{
     
-    b.reset();
     a.reset();
+    b.reset();
+    c.reset();
     
     int count = 0;
-    
     int dist = 0;
     
-    while((abs(b.position()) < 350) && (count == 0))
+    //"""FIRST SCAN"""
+    //"""stop when an object is detected"""
+    
+    while((abs(b.position()) < 450) && (count == 0))
     {
         dist++;
         if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
@@ -142,60 +145,146 @@ void Crain::example_code()
         }
         else
         {
-            b.set_speed_sp(get_speed());
-            b.set_position_sp(dist);// - left + right
-            b.run_to_abs_pos();
-            b.set_stop_action("hold");
-            b.stop();
+            left_right(dist);
         }
     }
     
-    std::cout<<"a"<<std::endl;
+    //"""DOWN"""
+    up_down(350);
     
-    while( (abs(a.position()) >= 130) || (abs(a.position()) <= 70) )// - up + down
+    //"""GRAB(CLOSE)"""
+    open_close(50);
+    
+    //"""UP"""
+    up_down(0);
+    
+    //"""MOVE TO FINISH"""
+    left_right(450);
+    
+    //"""DOWN"""
+    up_down(350);
+    
+    //"""RELEASE"""
+    open_close(0);
+    
+    //"""UP"""
+    up_down(0);
+    
+    //"""SECOND SCAN"""
+    //"""stop when an object is detected"""
+    
+    dist = 0;
+    
+    while((abs(b.position()) > 0) && (count == 0))
     {
-        std::cout<<"b"<<std::endl;
-        a.set_speed_sp(get_speed());
-        a.set_position_sp(a_get_position_sp());
-        a.run_to_abs_pos();
-        a.set_stop_action("hold");
-        a.stop();
-        std::cout<<"c"<<std::endl;
+        dist++;
+        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
+        {
+            count++;
+        }
+        else
+        {
+            left_right(450 - dist);
+        }
     }
     
-    c.reset();
+    //"""DOWN"""
+    up_down(350);
     
-    std::cout<<c.position()<<std::endl;
+    //"""GRAB(CLOSE)"""
+    open_close(50);
     
-    while( (abs(c.position()) <= 30)  || (abs(c.position()) >= 70) )// - open + close
+    //"""UP"""
+    up_down(0);
+    
+    //"""MOVE TO FINISH"""
+    left_right(450);
+    
+    //"""DOWN"""
+    up_down(350);
+    
+    //"""RELEASE"""
+    open_close(0);
+    
+    //"""UP"""
+    up_down(0);
+    
+    //"""THIRD SCAN"""
+    //"""stop when an object is detected"""
+    
+    dist = 0;
+    
+    while((abs(b.position()) > 0) && (count == 0))
     {
-        std::cout<<"x"<<std::endl;
-        c.set_speed_sp(get_speed());
-        c.set_position_sp(-50);
-        c.run_to_abs_pos();
-        c.set_stop_action("hold");
-        c.stop();
-        std::cout<<c.position()<<std::endl;
-        std::cout<<"y"<<std::endl;
+        dist++;
+        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
+        {
+            count++;
+        }
+        else
+        {
+            left_right(450 - dist);
+        }
     }
     
+    //"""DOWN"""
+    up_down(350);
     
-    /*
-    c.reset();
+    //"""GRAB(CLOSE)"""
+    open_close(50);
     
-    while(abs(c.position()) != abs(c_get_position_sp()))
-    {
-        c.set_speed_sp(get_speed());
-        c.set_position_sp(-1*c_get_position_sp());
-        c.run_to_abs_pos();
-        c.set_stop_action("hold");
-        c.stop();
-    }
-    */
+    //"""UP"""
+    up_down(0);
+    
+    //"""MOVE TO FINISH"""
+    left_right(450);
+    
+    //"""DOWN"""
+    up_down(350);
+    
+    //"""RELEASE"""
+    open_close(0);
 
     a.stop();
     b.stop();
 }
+
+void Crain::left_right(int sp)
+{
+    std::cout << "dd" << std::endl;
+    b.set_speed_sp(get_speed());
+    b.set_position_sp(sp);// - left + right
+    b.run_to_abs_pos();
+    b.set_stop_action("hold");
+    b.stop();
+}
+
+
+void Crain::up_down(int sp)
+{
+    while( (abs(a.position()) >= (sp + 30)) || (abs(a.position()) <= (sp - 30)) ) //위에가 0
+    {
+        a.set_speed_sp(get_speed());
+        a.set_position_sp(sp);
+        a.run_to_abs_pos();
+        a.set_stop_action("hold");
+        a.stop();
+    }
+}
+
+
+void Crain::open_close(int sp)
+{
+    while( (abs(c.position()) <= (sp - 20))  || (abs(c.position()) >= (sp + 20)) )// 열린게 0
+    {
+        c.set_speed_sp(get_speed());
+        c.set_position_sp(sp);
+        c.run_to_abs_pos();
+        c.set_stop_action("hold");
+        c.stop();
+    }
+}
+
 
 int main()
 {     
@@ -204,7 +293,6 @@ int main()
         
         
         if(crain.get_touch_pressed()==true){ 
-            
         crain.example_code(); //This line is for example, you should erase this ex_code in your 'real code' 
   
         }
