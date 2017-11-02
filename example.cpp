@@ -6,9 +6,9 @@ class Crain : public CraneCrane
 private:
     ev3dev::ultrasonic_sensor ultra_q;
     ev3dev::touch_sensor touch_q;
-    ev3dev::motor a;
-    ev3dev::motor b; 
-    ev3dev::motor c;
+    ev3dev::motor a;//위아래
+    ev3dev::motor b;//상하
+    ev3dev::motor c;//집게
     
 public:
     // Hardware Configuration
@@ -61,9 +61,10 @@ public:
 
     virtual int get_speed()
     {
-        return 800;
+        return 800;//original speed = 100, 800으로 높여봄
     }
     
+    /* 사실 상 필요없는 부분
     virtual int a_get_position_sp()
     {
         return 100;
@@ -78,6 +79,7 @@ public:
     {
         return 50;
     }
+    */
     
     virtual void set_down(bool val)
     {
@@ -173,8 +175,8 @@ void Crain::example_code()
     //"""SECOND SCAN"""
     //"""stop when an object is detected"""
     
-    int dist = 0;
-    //int count = 0;
+    dist = 0;
+    count = 0;
     
     while((abs(b.position()) > 0) && (count == 0))//지금 450으로 가 있는 상황, while문 빠져나올 때 까지는 b위치가 0보다 작을 일은 없음
     {
@@ -214,6 +216,7 @@ void Crain::example_code()
     //"""stop when an object is detected"""
     
     dist = 0;
+    count = 0;
     
     while((abs(b.position()) > 0) && (count == 0))
     {
