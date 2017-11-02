@@ -6,9 +6,9 @@ class Crain : public CraneCrane
 private:
     ev3dev::ultrasonic_sensor ultra_q;
     ev3dev::touch_sensor touch_q;
-    ev3dev::motor a;//위아래
-    ev3dev::motor b;//상하
-    ev3dev::motor c;//집게
+    ev3dev::motor a;
+    ev3dev::motor b; 
+    ev3dev::motor c;
     
 public:
     // Hardware Configuration
@@ -61,10 +61,9 @@ public:
 
     virtual int get_speed()
     {
-        return 800;//original speed = 100, 800으로 높여봄
+        return 800;
     }
     
-    /* 사실 상 필요없는 부분
     virtual int a_get_position_sp()
     {
         return 100;
@@ -79,7 +78,6 @@ public:
     {
         return 50;
     }
-    */
     
     virtual void set_down(bool val)
     {
@@ -117,7 +115,7 @@ public:
     
 public:
     void example_code();
-    //void move();
+    
     void left_right(int sp);
     void up_down(int sp);
     void open_close(int sp);
@@ -140,62 +138,25 @@ void Crain::example_code()
     
     while((abs(b.position()) < 450) && (count == 0))
     {
-        dist++;//1씩 움직임
-        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))//물체가 감지될 때(센서와의 거리가 줄음)
-        {
-            count++;//count 1 증가, while문 빠져나옴
-        }
-        else//물체가 감지되지 않았을 때
-        {
-            left_right(dist);// 1씩 왼쪽으로 움직임(dist가 양수이므로 오른쪽으로 1만큼 이동)
-        }
-    }
-    
-    //"""DOWN"""
-    up_down(350);//아래로 350만큼 내려감
-    
-    //"""GRAB(CLOSE)"""
-    open_close(50);//50만큼 닫힘, 물건을 집는 부분
-    
-    //"""UP"""
-    up_down(0);//물건을 가지고, 기준점 0으로 올라감
-    
-    //"""MOVE TO FINISH"""
-    left_right(450);//finish지점이 450이라고 가정할 때 오른쪽으로 끝까지 이동
-    
-    //"""DOWN"""
-    up_down(350);//아래로 350만큼 내려간 후 물건 내려놓음
-    
-    //"""RELEASE"""
-    open_close(0);//집게 초기화, 기준점 0에서 열림
-    
-    //"""UP"""
-    up_down(0);//기준점 0으로 돌아감
-    
-    //"""SECOND SCAN"""
-    //"""stop when an object is detected"""
-    
-    dist = 0;
-    count = 0;
-    
-    while((abs(b.position()) > 0) && (count == 0))//지금 450으로 가 있는 상황, while문 빠져나올 때 까지는 b위치가 0보다 작을 일은 없음
-    {
-        dist++;//1만큼 움직임
+        dist++;
         if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
         {
             count++;
         }
         else
         {
-            left_right(450 - dist);//왼쪽으로 물체감지하면서 1만큼 씩 움직임
+            left_right(dist);
         }
     }
+    
+    //"""OPEN"""
+    open_close(200);
     
     //"""DOWN"""
     up_down(350);
     
-    //"""GRAB(CLOSE)"""
-    open_close(50);
+    //"""CLOSE"""
+    open_close(0);
     
     //"""UP"""
     up_down(0);
@@ -206,13 +167,16 @@ void Crain::example_code()
     //"""DOWN"""
     up_down(350);
     
-    //"""RELEASE"""
-    open_close(0);
+    //"""OPEN"""
+    open_close(200);
     
     //"""UP"""
     up_down(0);
     
-    //"""THIRD SCAN"""
+    //"""CLOSE"""
+    open_close(0);
+    
+    //"""SECOND SCAN"""
     //"""stop when an object is detected"""
     
     dist = 0;
@@ -231,11 +195,14 @@ void Crain::example_code()
         }
     }
     
+    //"""OPEN"""
+    open_close(200);
+    
     //"""DOWN"""
     up_down(350);
     
     //"""GRAB(CLOSE)"""
-    open_close(50);
+    open_close(0);
     
     //"""UP"""
     up_down(0);
@@ -246,17 +213,61 @@ void Crain::example_code()
     //"""DOWN"""
     up_down(350);
     
-    //"""RELEASE"""
-    open_close(0);//물체를 내려놓고 끝
-    //함수로 바꾸면 move();로 대체됨
+    //"""OPEN"""
+    open_close(200);
+    
+    //"""UP"""
+    up_down(0);
+    
+    //"""GRAB(CLOSE)"""
+    open_close(0);
+    
+    //"""THIRD SCAN"""
+    //"""stop when an object is detected"""
+    
+    dist = 0;
+    count =0;
+    
+    while((abs(b.position()) > 0) && (count == 0))
+    {
+        dist++;
+        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
+        {
+            count++;
+        }
+        else
+        {
+            left_right(450 - dist);
+        }
+    }
+    
+    //"""OPEN"""
+    open_close(200);
+    
+    //"""DOWN"""
+    up_down(350);
+    
+    //"""GRAB(CLOSE)"""
+    open_close(0);
+    
+    //"""UP"""
+    up_down(0);
+    
+    //"""MOVE TO FINISH"""
+    left_right(450);
+    
+    //"""DOWN"""
+    up_down(350);
+    
+    //"""OPEN"""
+    open_close(200);
 
     a.stop();
     b.stop();
 }
 
-void Crain::left_right(int sp)//left_right function
+void Crain::left_right(int sp)
 {
-    //std::cout << "dd" << std::endl;
     b.set_speed_sp(get_speed());
     b.set_position_sp(sp);// - left + right
     b.run_to_abs_pos();
@@ -280,7 +291,7 @@ void Crain::up_down(int sp)
 
 void Crain::open_close(int sp)
 {
-    while( (abs(c.position()) <= (sp - 20))  || (abs(c.position()) >= (sp + 20)) )// 열린게 0
+    while( (abs(c.position()) <= (sp - 5))  || (abs(c.position()) >= (sp + 5)) )// 열린게 0
     {
         c.set_speed_sp(get_speed());
         c.set_position_sp(sp);
@@ -289,26 +300,6 @@ void Crain::open_close(int sp)
         c.stop();
     }
 }
-/*
-void Crain::move();
-{
-    up_down(350);
-    
-    
-    open_close(50);
-    
-   
-    up_down(0);
-    
-   
-    left_right(450);
-    
-   
-    up_down(350);
-    
-    
-    open_close(0);
-}*/
 
 
 int main()
