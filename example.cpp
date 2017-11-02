@@ -178,7 +178,7 @@ void Crain::example_code()
     //"""SECOND SCAN"""
     //"""stop when an object is detected"""
     
-    dist = 0;
+    //dist = 0;
     count = 0;
     dist = 10;
     while((abs(b.position()) > 0) && (count == 0))
@@ -223,7 +223,7 @@ void Crain::example_code()
     //"""THIRD SCAN"""
     //"""stop when an object is detected"""
     
-    dist = 0;
+    //dist = 0;
     count =0;
     dist = 10;
     while((abs(b.position()) > 0) && (count == 0))
@@ -275,7 +275,7 @@ void Crain::left_right(int sp)
 
 void Crain::left_right_FINISH(int sp)
 {
-    b.set_speed_sp(10);
+    b.set_speed_sp(5);
     b.set_position_sp(sp);// - left + right
     b.run_to_abs_pos();
     b.set_stop_action("hold");
