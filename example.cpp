@@ -61,7 +61,7 @@ public:
 
     virtual int get_speed()
     {
-        return 800;
+        return 50;
     }
     
     virtual int a_get_position_sp()
@@ -115,8 +115,8 @@ public:
     
 public:
     void example_code();
-    
     void left_right(int sp);
+    void left_right_FINISH(int sp);
     void up_down(int sp);
     void open_close(int sp);
 };
@@ -131,14 +131,13 @@ void Crain::example_code()
     c.reset();
     
     int count = 0;
-    int dist = 0;
+    int dist = 10;
     
     //"""FIRST SCAN"""
     //"""stop when an object is detected"""
     
-    while((abs(b.position()) < 450) && (count == 0))
+    while((abs(b.position()) < 600) && (count == 0))
     {
-        dist++;
         if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
         {
             count++;
@@ -150,25 +149,25 @@ void Crain::example_code()
     }
     
     //"""OPEN"""
-    open_close(200);
+    open_close(55);
     
     //"""DOWN"""
     up_down(350);
     
     //"""CLOSE"""
-    open_close(0);
+    open_close(120);
     
     //"""UP"""
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right(450);
+    left_right_FINISH(600);
     
     //"""DOWN"""
     up_down(350);
     
     //"""OPEN"""
-    open_close(200);
+    open_close(55);
     
     //"""UP"""
     up_down(0);
@@ -181,40 +180,39 @@ void Crain::example_code()
     
     dist = 0;
     count = 0;
-    
+    dist = 10;
     while((abs(b.position()) > 0) && (count == 0))
     {
-        dist++;
         if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
         {
             count++;
         }
         else
         {
-            left_right(450 - dist);
+            left_right((-1) * dist);
         }
     }
     
     //"""OPEN"""
-    open_close(200);
+    open_close(55);
     
     //"""DOWN"""
     up_down(350);
     
     //"""GRAB(CLOSE)"""
-    open_close(0);
+    open_close(120);
     
     //"""UP"""
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right(450);
+    left_right_FINISH(600);
     
     //"""DOWN"""
     up_down(350);
     
     //"""OPEN"""
-    open_close(200);
+    open_close(55);
     
     //"""UP"""
     up_down(0);
@@ -227,48 +225,57 @@ void Crain::example_code()
     
     dist = 0;
     count =0;
-    
+    dist = 10;
     while((abs(b.position()) > 0) && (count == 0))
     {
-        dist++;
         if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
         {
             count++;
         }
         else
         {
-            left_right(450 - dist);
+            left_right((-1) * dist);
         }
     }
     
     //"""OPEN"""
-    open_close(200);
+    open_close(55);
     
     //"""DOWN"""
     up_down(350);
     
     //"""GRAB(CLOSE)"""
-    open_close(0);
+    open_close(120);
     
     //"""UP"""
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right(450);
+    left_right_FINISH(600);
     
     //"""DOWN"""
     up_down(350);
     
     //"""OPEN"""
-    open_close(200);
+    open_close(55);
 
     a.stop();
     b.stop();
 }
 
+
 void Crain::left_right(int sp)
 {
     b.set_speed_sp(get_speed());
+    b.set_position_sp(sp);// - left + right
+    b.run_to_rel_pos();
+    b.set_stop_action("hold");
+    b.stop();
+}
+
+void Crain::left_right_FINISH(int sp)
+{
+    b.set_speed_sp(10);
     b.set_position_sp(sp);// - left + right
     b.run_to_abs_pos();
     b.set_stop_action("hold");
@@ -280,7 +287,7 @@ void Crain::up_down(int sp)
 {
     while( (abs(a.position()) >= (sp + 30)) || (abs(a.position()) <= (sp - 30)) ) //위에가 0
     {
-        a.set_speed_sp(get_speed());
+        a.set_speed_sp(10);
         a.set_position_sp(sp);
         a.run_to_abs_pos();
         a.set_stop_action("hold");
@@ -291,10 +298,10 @@ void Crain::up_down(int sp)
 
 void Crain::open_close(int sp)
 {
-    while( (abs(c.position()) <= (sp - 5))  || (abs(c.position()) >= (sp + 5)) )// 열린게 0
+    while( (abs(c.position()) <= (sp - 5))  || (abs(c.position()) >= (sp + 5)) )// 닫힌게 0
     {
         c.set_speed_sp(get_speed());
-        c.set_position_sp(sp);
+        c.set_position_sp(-sp);
         c.run_to_abs_pos();
         c.set_stop_action("hold");
         c.stop();
