@@ -131,12 +131,12 @@ void Crain::example_code()
     c.reset();
     
     int count = 0;
-    int dist = 10;
+    int dist = 5;
     
     //"""FIRST SCAN"""
     //"""stop when an object is detected"""
     
-    while((abs(b.position()) < 600) && (count == 0))
+    while((abs(b.position()) < 620) && (count == 0))
     {
         if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
         {
@@ -161,7 +161,7 @@ void Crain::example_code()
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right_FINISH(600);
+    left_right_FINISH(620);
     
     //"""DOWN"""
     up_down(350);
@@ -180,7 +180,7 @@ void Crain::example_code()
     
     //dist = 0;
     count = 0;
-    dist = 10;
+    dist = 5;
     while((abs(b.position()) > 0) && (count == 0))
     {
         if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
@@ -206,7 +206,7 @@ void Crain::example_code()
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right_FINISH(600);
+    left_right_FINISH(620);
     
     //"""DOWN"""
     up_down(350);
@@ -225,7 +225,7 @@ void Crain::example_code()
     
     //dist = 0;
     count =0;
-    dist = 10;
+    dist = 5;
     while((abs(b.position()) > 0) && (count == 0))
     {
         if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
@@ -251,7 +251,7 @@ void Crain::example_code()
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right_FINISH(600);
+    left_right_FINISH(620);
     
     //"""DOWN"""
     up_down(350);
