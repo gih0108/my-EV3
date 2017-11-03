@@ -110,12 +110,20 @@ public:
 
 void Crain::BlackHand_code()
 {
+    
     a.reset();
     b.reset();
     c.reset();
     
     int count = 0;
     int dist = 5;
+    
+    
+    //up_down(150);
+    
+    //a.reset();
+    
+    
     
     //"""FIRST SCAN"""
     //"""stop when an object is detected"""
@@ -145,9 +153,11 @@ void Crain::BlackHand_code()
     sleep(1.5);
     
     //"""CLOSE"""///////////////////////////////////////////
-    //open_close(150);
+    //open_close(130);
     c.set_speed_sp(100);
     c.run_forever();
+    
+    sleep(1);
     
     //"""UP"""
     up_down(0);
@@ -208,9 +218,11 @@ void Crain::BlackHand_code()
     sleep(1.5);
     
     //"""GRAB(CLOSE)"""///////////////////////
-    //open_close(150);
+    //open_close(130);
     c.set_speed_sp(100);
     c.run_forever();
+    
+    sleep(1);
     
     //"""UP"""
     up_down(0);
@@ -265,9 +277,11 @@ void Crain::BlackHand_code()
     sleep(1.5);
     
     //"""GRAB(CLOSE)"""////////////////////////////////////
-    //open_close(150);
+    //open_close(130);
     c.set_speed_sp(100);
     c.run_forever();
+    
+    sleep(1);
     
     //"""UP"""
     up_down(0);
@@ -332,21 +346,17 @@ void Crain::open_close(int sp)
     }
 }
 
-int main()
-{   
-    int example;  
-    int instance;
 
+int main()
+{     
     Crain crain;
     while(true){
         
+        
         if(crain.get_touch_pressed()==true){
             
-            int example* instance = new example();
-            int example execute();
-            delete example();
             
-            crain.BlackHand_code(); 
+            crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
   
         }
     }
