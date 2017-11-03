@@ -180,14 +180,7 @@ void Crain::BlackHand_code()
     
     //"""UP"""
     up_down(0);
-    
-    
-    //"""CLOSE"""
-    //open_close(0);
-    c.set_speed_sp(80);
-    c.run_forever();
-    
-    
+
     sleep(1);
     
     //"""SECOND SCAN"""
@@ -248,12 +241,7 @@ void Crain::BlackHand_code()
     
     //"""UP"""
     up_down(0);
-    
-    //"""GRAB(CLOSE)"""
-    //open_close(0);
-    c.set_speed_sp(80);
-    c.run_forever();
-    
+
     sleep(1);
     
     //"""THIRD SCAN"""
