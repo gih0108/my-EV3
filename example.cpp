@@ -116,8 +116,17 @@ public:
 
 void Crain::BlackHand_code()
 {
+    if(get_touch_pressed_q2()==true))
+    {
+        b.reset();
+        b.set_position_sp(-620);
+        b.run_to_abs_pos();
+        a.reset();
+        a.set_position_sp(400);
+        a.run_to_abs_pos();
+        
+    }
 
-    
     a.reset();
     b.reset();
     c.reset();
@@ -354,8 +363,6 @@ int main()
             crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
   
         }
-        if(crain.get_touch_pressed_q2()==true){
-            
-        }
+       
     }
 }
