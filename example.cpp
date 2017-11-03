@@ -317,7 +317,15 @@ int main()
         
         if(crain.get_touch_pressed()==true){ 
         crain.example_code(); //This line is for example, you should erase this ex_code in your 'real code' 
+        if(touch_q.is_pressed())
+        {
+            example code * instance = new example_code;
+            example_code execute();
+            
+            delete example_code;
+        }
   
         }
     }
 }
+
