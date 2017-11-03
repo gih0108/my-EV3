@@ -12,18 +12,17 @@ private:
     
 public:
     // Hardware Configuration
-    Crain():m_speed(0), touch_q(ev3dev::INPUT_2),a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_D), ultra_q(ev3dev::INPUT_1)
+    Crain():m_speed(0), touch_q(ev3dev::INPUT_2), a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_D), ultra_q(ev3dev::INPUT_1)
     {
         
     }
     
     int m_speed;
     
-    bool get_touch_pressed_q()
+    bool get_touch_pressed()
     {
         return touch_q.is_pressed();
     }
- 
     
     float get_ultrasonic_distance()
     {
@@ -111,7 +110,6 @@ public:
 
 void Crain::BlackHand_code()
 {
-
     a.reset();
     b.reset();
     c.reset();
@@ -124,7 +122,7 @@ void Crain::BlackHand_code()
     
     while((abs(b.position()) < 620) && (count == 0))
     {
-        if((ultra_q.distance_centimeters() < 10))
+        if((ultra_q.distance_centimeters() < 12))
         {
             count++;
         }
@@ -144,12 +142,12 @@ void Crain::BlackHand_code()
     //"""DOWN"""
     up_down(400);
     
-    sleep(2);
+    sleep(1.5);
     
-    //"""CLOSE"""
-    open_close(150);
-    
-    sleep(0.5);
+    //"""CLOSE"""///////////////////////////////////////////
+    //open_close(150);
+    c.set_speed_sp(100);
+    c.run_forever();
     
     //"""UP"""
     up_down(0);
@@ -207,12 +205,12 @@ void Crain::BlackHand_code()
     //"""DOWN"""
     up_down(400);
     
-    sleep(2);
+    sleep(1.5);
     
-    //"""GRAB(CLOSE)"""
-    open_close(150);
-    
-    sleep(0.5);
+    //"""GRAB(CLOSE)"""///////////////////////
+    //open_close(150);
+    c.set_speed_sp(100);
+    c.run_forever();
     
     //"""UP"""
     up_down(0);
@@ -248,7 +246,7 @@ void Crain::BlackHand_code()
     dist = 5;
     while((abs(b.position()) > 0) && (count == 0))
     {
-        if((ultra_q.distance_centimeters() < 10))
+        if((ultra_q.distance_centimeters() < 12))
         {
             count++;
         }
@@ -264,12 +262,12 @@ void Crain::BlackHand_code()
     //"""DOWN"""
     up_down(400);
     
-    sleep(2);
+    sleep(1.5);
     
-    //"""GRAB(CLOSE)"""
-    open_close(150);
-    
-    sleep(1);
+    //"""GRAB(CLOSE)"""////////////////////////////////////
+    //open_close(150);
+    c.set_speed_sp(100);
+    c.run_forever();
     
     //"""UP"""
     up_down(0);
@@ -283,11 +281,10 @@ void Crain::BlackHand_code()
     up_down(400);
     
     //"""OPEN"""
-    //open_close(55);
+    open_close(55);
 
     a.stop();
     b.stop();
-
 }
 
 
@@ -302,7 +299,7 @@ void Crain::left_right(int sp)
 
 void Crain::left_right_FINISH(int sp)
 {
-    b.set_speed_sp(10);
+    b.set_speed_sp(20);
     b.set_position_sp(sp);// - left + right
     b.run_to_abs_pos();
     b.set_stop_action("hold");
@@ -342,11 +339,16 @@ int main()
     while(true){
         
         
-        if(crain.get_touch_pressed_q()==true)
-        {
+        if(crain.get_touch_pressed()==true){
+            
+            example* instance = new example;
+            example execute();
+            delete example;
+    
+            
+            
             crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
   
         }
-       
     }
 }
