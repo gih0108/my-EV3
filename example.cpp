@@ -5,23 +5,29 @@ class Crain : public CraneCrane
 {
 private:
     ev3dev::ultrasonic_sensor ultra_q;
-    ev3dev::touch_sensor touch_q;
+    ev3dev::touch_sensor touch_q1;
+    ev3dev::touch_sensor touch_q2;
     ev3dev::motor a;
     ev3dev::motor b; 
     ev3dev::motor c;
     
 public:
     // Hardware Configuration
-    Crain():m_speed(0), touch_q(ev3dev::INPUT_2), a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_D), ultra_q(ev3dev::INPUT_1)
+    Crain():m_speed(0), touch_q1(ev3dev::INPUT_2), touch_q2(ev3dev::INPUT_4),(a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_D), ultra_q(ev3dev::INPUT_1)
     {
         
     }
     
     int m_speed;
     
-    bool get_touch_pressed()
+    bool get_touch_pressed_q1()
     {
-        return touch_q.is_pressed();
+        return touch_q1.is_pressed();
+    }
+    
+    bool get_touch_pressed_q2()
+    {
+        return touch_q2.is_pressed();
     }
     
     float get_ultrasonic_distance()
@@ -110,6 +116,7 @@ public:
 
 void Crain::BlackHand_code()
 {
+
     
     a.reset();
     b.reset();
@@ -286,6 +293,7 @@ void Crain::BlackHand_code()
 
     a.stop();
     b.stop();
+
 }
 
 
@@ -340,11 +348,14 @@ int main()
     while(true){
         
         
-        if(crain.get_touch_pressed()==true){
+        if(crain.get_touch_pressed_q1()==true){
             
             
             crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
   
+        }
+        if(crain.get_touch_pressed_q2()==true){
+            
         }
     }
 }
