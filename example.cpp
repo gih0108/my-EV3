@@ -13,7 +13,7 @@ private:
     
 public:
     // Hardware Configuration
-    Crain():m_speed(0), touch_q1(ev3dev::INPUT_2), touch_q2(ev3dev::INPUT_4),(a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_D), ultra_q(ev3dev::INPUT_1)
+    Crain():m_speed(0), touch_q1(ev3dev::INPUT_2), touch_q2(ev3dev::INPUT_4),a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_D), ultra_q(ev3dev::INPUT_1)
     {
         
     }
@@ -116,7 +116,7 @@ public:
 
 void Crain::BlackHand_code()
 {
-    if(get_touch_pressed_q2()==true))
+    if(get_touch_pressed_q2()==true)
     {
         b.reset();
         b.set_position_sp(-620);
@@ -357,9 +357,8 @@ int main()
     while(true){
         
         
-        if(crain.get_touch_pressed_q1()==true){
-            
-            
+        if(crain.get_touch_pressed_q1()==true)
+        {
             crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
   
         }
