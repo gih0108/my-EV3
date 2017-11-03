@@ -119,12 +119,6 @@ void Crain::BlackHand_code()
     int dist = 5;
     
     
-    //up_down(150);
-    
-    //a.reset();
-    
-    
-    
     //"""FIRST SCAN"""
     //"""stop when an object is detected"""
     
