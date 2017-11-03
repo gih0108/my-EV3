@@ -12,7 +12,7 @@ private:
     
 public:
     // Hardware Configuration
-    Crain():m_speed(0), touch_q(ev3dev::INPUT_2), a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_D), ultra_q(ev3dev::INPUT_3)
+    Crain():m_speed(0), touch_q(ev3dev::INPUT_2), a(ev3dev::OUTPUT_B), b(ev3dev::OUTPUT_C), c(ev3dev::OUTPUT_D), ultra_q(ev3dev::INPUT_1)
     {
         
     }
@@ -64,21 +64,6 @@ public:
         return 50;
     }
     
-    virtual int a_get_position_sp()
-    {
-        return 100;
-    }
-    
-    virtual int b_get_position_sp()
-    {
-        return 100;
-    }
-    
-    virtual int c_get_position_sp()
-    {
-        return 50;
-    }
-    
     virtual void set_down(bool val)
     {
         m_down = val;
@@ -114,7 +99,7 @@ public:
     }
     
 public:
-    void example_code();
+    void BlackHand_code();
     void left_right(int sp);
     void left_right_FINISH(int sp);
     void up_down(int sp);
@@ -123,7 +108,7 @@ public:
 
 
 
-void Crain::example_code()
+void Crain::BlackHand_code()
 {
     
     a.reset();
@@ -138,7 +123,7 @@ void Crain::example_code()
     
     while((abs(b.position()) < 620) && (count == 0))
     {
-        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
+        if((ultra_q.distance_centimeters() < 10))
         {
             count++;
         }
@@ -148,14 +133,22 @@ void Crain::example_code()
         }
     }
     
+    sleep(0.5);
+    
     //"""OPEN"""
     open_close(55);
     
+    sleep(0.5);
+    
     //"""DOWN"""
-    up_down(350);
+    up_down(400);
+    
+    sleep(2);
     
     //"""CLOSE"""
-    open_close(120);
+    open_close(150);
+    
+    sleep(0.5);
     
     //"""UP"""
     up_down(0);
@@ -163,27 +156,37 @@ void Crain::example_code()
     //"""MOVE TO FINISH"""
     left_right_FINISH(620);
     
+    sleep(1);
+    
     //"""DOWN"""
-    up_down(350);
+    up_down(400);
+    
+    sleep(0.5);
     
     //"""OPEN"""
     open_close(55);
     
+    sleep(0.5);
+    
     //"""UP"""
     up_down(0);
     
+    
     //"""CLOSE"""
     open_close(0);
+    
+    sleep(1);
     
     //"""SECOND SCAN"""
     //"""stop when an object is detected"""
     
-    //dist = 0;
+    dist = 0;
     count = 0;
     dist = 5;
+    
     while((abs(b.position()) > 0) && (count == 0))
     {
-        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
+        if((ultra_q.distance_centimeters() < 10))
         {
             count++;
         }
@@ -193,14 +196,22 @@ void Crain::example_code()
         }
     }
     
+    sleep(0.5);
+    
     //"""OPEN"""
     open_close(55);
     
+    sleep(0.5);
+    
     //"""DOWN"""
-    up_down(350);
+    up_down(400);
+    
+    sleep(2);
     
     //"""GRAB(CLOSE)"""
-    open_close(120);
+    open_close(150);
+    
+    sleep(0.5);
     
     //"""UP"""
     up_down(0);
@@ -208,11 +219,17 @@ void Crain::example_code()
     //"""MOVE TO FINISH"""
     left_right_FINISH(620);
     
+    sleep(1);
+    
     //"""DOWN"""
-    up_down(350);
+    up_down(400);
+    
+    sleep(0.5);
     
     //"""OPEN"""
     open_close(55);
+    
+    sleep(0.5);
     
     //"""UP"""
     up_down(0);
@@ -220,15 +237,17 @@ void Crain::example_code()
     //"""GRAB(CLOSE)"""
     open_close(0);
     
+    sleep(1);
+    
     //"""THIRD SCAN"""
     //"""stop when an object is detected"""
     
-    //dist = 0;
+    dist = 0;
     count =0;
     dist = 5;
     while((abs(b.position()) > 0) && (count == 0))
     {
-        if((ultra_q.distance_centimeters() > 0) && (ultra_q.distance_centimeters() < 10))
+        if((ultra_q.distance_centimeters() < 10))
         {
             count++;
         }
@@ -242,10 +261,14 @@ void Crain::example_code()
     open_close(55);
     
     //"""DOWN"""
-    up_down(350);
+    up_down(400);
+    
+    sleep(2);
     
     //"""GRAB(CLOSE)"""
-    open_close(120);
+    open_close(150);
+    
+    sleep(1);
     
     //"""UP"""
     up_down(0);
@@ -253,8 +276,10 @@ void Crain::example_code()
     //"""MOVE TO FINISH"""
     left_right_FINISH(620);
     
+    sleep(1);
+    
     //"""DOWN"""
-    up_down(350);
+    up_down(400);
     
     //"""OPEN"""
     open_close(55);
@@ -275,7 +300,7 @@ void Crain::left_right(int sp)
 
 void Crain::left_right_FINISH(int sp)
 {
-    b.set_speed_sp(5);
+    b.set_speed_sp(10);
     b.set_position_sp(sp);// - left + right
     b.run_to_abs_pos();
     b.set_stop_action("hold");
@@ -315,17 +340,11 @@ int main()
     while(true){
         
         
-        if(crain.get_touch_pressed()==true){ 
-        crain.example_code(); //This line is for example, you should erase this ex_code in your 'real code' 
-        if(touch_q.is_pressed())
-        {
-            example code * instance = new example_code;
-            example_code execute();
+        if(crain.get_touch_pressed()==true){
             
-            delete example_code;
-        }
+            
+            crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
   
         }
     }
 }
-
