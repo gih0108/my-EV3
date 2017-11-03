@@ -282,7 +282,7 @@ void Crain::BlackHand_code()
     up_down(400);
     
     //"""OPEN"""
-    open_close(55);
+    //open_close(55);
 
     a.stop();
     b.stop();
