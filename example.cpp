@@ -332,22 +332,21 @@ void Crain::open_close(int sp)
     }
 }
 
-
 int main()
-{     
+{   
+    int example;  
+    int instance;
+
     Crain crain;
     while(true){
         
-        
         if(crain.get_touch_pressed()==true){
             
-            example* instance = new example;
-            example execute();
-            delete example;
-    
+            int example* instance = new example();
+            int example execute();
+            delete example();
             
-            
-            crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
+            crain.BlackHand_code(); 
   
         }
     }
