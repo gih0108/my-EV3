@@ -119,6 +119,13 @@ void Crain::BlackHand_code()
     int dist = 5;
     
     
+    up_down(150);
+    sleep(1.5);
+    
+    a.reset();
+    
+    
+    
     //"""FIRST SCAN"""
     //"""stop when an object is detected"""
     
@@ -142,13 +149,13 @@ void Crain::BlackHand_code()
     sleep(0.5);
     
     //"""DOWN"""
-    up_down(400);
+    up_down(250);
     
-    sleep(1.5);
+    sleep(1.2);
     
     //"""CLOSE"""///////////////////////////////////////////
     //open_close(130);
-    c.set_speed_sp(100);
+    c.set_speed_sp(80);
     c.run_forever();
     
     sleep(1);
@@ -162,7 +169,7 @@ void Crain::BlackHand_code()
     sleep(1);
     
     //"""DOWN"""
-    up_down(400);
+    up_down(250);
     
     sleep(0.5);
     
@@ -176,7 +183,10 @@ void Crain::BlackHand_code()
     
     
     //"""CLOSE"""
-    open_close(0);
+    //open_close(0);
+    c.set_speed_sp(80);
+    c.run_forever();
+    
     
     sleep(1);
     
@@ -207,13 +217,13 @@ void Crain::BlackHand_code()
     sleep(0.5);
     
     //"""DOWN"""
-    up_down(400);
+    up_down(250);
     
-    sleep(1.5);
+    sleep(1.2);
     
     //"""GRAB(CLOSE)"""///////////////////////
     //open_close(130);
-    c.set_speed_sp(100);
+    c.set_speed_sp(80);
     c.run_forever();
     
     sleep(1);
@@ -227,7 +237,7 @@ void Crain::BlackHand_code()
     sleep(1);
     
     //"""DOWN"""
-    up_down(400);
+    up_down(250);
     
     sleep(0.5);
     
@@ -240,7 +250,9 @@ void Crain::BlackHand_code()
     up_down(0);
     
     //"""GRAB(CLOSE)"""
-    open_close(0);
+    //open_close(0);
+    c.set_speed_sp(80);
+    c.run_forever();
     
     sleep(1);
     
@@ -266,13 +278,13 @@ void Crain::BlackHand_code()
     open_close(55);
     
     //"""DOWN"""
-    up_down(400);
+    up_down(250);
     
-    sleep(1.5);
+    sleep(1.2);
     
     //"""GRAB(CLOSE)"""////////////////////////////////////
     //open_close(130);
-    c.set_speed_sp(100);
+    c.set_speed_sp(80);
     c.run_forever();
     
     sleep(1);
@@ -286,7 +298,7 @@ void Crain::BlackHand_code()
     sleep(1);
     
     //"""DOWN"""
-    up_down(400);
+    up_down(250);
     
     //"""OPEN"""
     open_close(55);
