@@ -147,7 +147,7 @@ void Crain::BlackHand_code()
     sleep(0.5);
     
     //"""DOWN"""
-    up_down(250);
+    up_down(240);//
     
     sleep(0.7);
     
@@ -167,7 +167,7 @@ void Crain::BlackHand_code()
     sleep(1);
     
     //"""DOWN"""
-    up_down(250);
+    up_down(240);//
     
     sleep(0.5);
     
@@ -208,7 +208,7 @@ void Crain::BlackHand_code()
     sleep(0.5);
     
     //"""DOWN"""
-    up_down(250);
+    up_down(240);//
     
     sleep(0.7);
     
@@ -228,7 +228,7 @@ void Crain::BlackHand_code()
     sleep(1);
     
     //"""DOWN"""
-    up_down(250);
+    up_down(240);//
     
     sleep(0.5);
     
@@ -266,7 +266,7 @@ void Crain::BlackHand_code()
     open_close(55);
     
     //"""DOWN"""
-    up_down(250);
+    up_down(240);//
     
     sleep(0.7);
     
@@ -286,7 +286,7 @@ void Crain::BlackHand_code()
     sleep(1);
     
     //"""DOWN"""
-    up_down(250);
+    up_down(240);//
     
     //"""OPEN"""
     open_close(55);
