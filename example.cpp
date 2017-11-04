@@ -124,8 +124,6 @@ void Crain::BlackHand_code()
     
     a.reset();
     
-    
-    
     //"""FIRST SCAN"""
     //"""stop when an object is detected"""
     
@@ -298,7 +296,7 @@ void Crain::BlackHand_code()
 
 void Crain::left_right(int sp)
 {
-    b.set_speed_sp(get_speed());
+    b.set_speed_sp(70);
     b.set_position_sp(sp);// - left + right
     b.run_to_rel_pos();
     b.set_stop_action("hold");
@@ -307,7 +305,7 @@ void Crain::left_right(int sp)
 
 void Crain::left_right_FINISH(int sp)
 {
-    b.set_speed_sp(20);
+    b.set_speed_sp(100);
     b.set_position_sp(sp);// - left + right
     b.run_to_abs_pos();
     b.set_stop_action("hold");
