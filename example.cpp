@@ -116,20 +116,20 @@ void Crain::BlackHand_code()
     c.reset();
     
     int count = 0;
-    int dist = 5;
-    
+    int dist = 10;
     
     up_down(150);
-    sleep(1.5);
+    
+    sleep(1);
     
     a.reset();
     
     //"""FIRST SCAN"""
     //"""stop when an object is detected"""
     
-    while((abs(b.position()) < 620) && (count == 0))
+    while((abs(b.position()) < 600) && (count == 0))
     {
-        if((ultra_q.distance_centimeters() < 12))
+        if((ultra_q.distance_centimeters() < 11))
         {
             count++;
         }
@@ -149,7 +149,7 @@ void Crain::BlackHand_code()
     //"""DOWN"""
     up_down(250);
     
-    sleep(1.2);
+    sleep(0.7);
     
     //"""CLOSE"""///////////////////////////////////////////
     //open_close(130);
@@ -162,7 +162,7 @@ void Crain::BlackHand_code()
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right_FINISH(620);
+    left_right_FINISH(600);
     
     sleep(1);
     
@@ -186,11 +186,11 @@ void Crain::BlackHand_code()
     
     dist = 0;
     count = 0;
-    dist = 5;
+    dist = 10;
     
     while((abs(b.position()) > 0) && (count == 0))
     {
-        if((ultra_q.distance_centimeters() < 10))
+        if((ultra_q.distance_centimeters() < 11))
         {
             count++;
         }
@@ -210,7 +210,7 @@ void Crain::BlackHand_code()
     //"""DOWN"""
     up_down(250);
     
-    sleep(1.2);
+    sleep(0.7);
     
     //"""GRAB(CLOSE)"""///////////////////////
     //open_close(130);
@@ -223,7 +223,7 @@ void Crain::BlackHand_code()
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right_FINISH(620);
+    left_right_FINISH(600);
     
     sleep(1);
     
@@ -247,10 +247,12 @@ void Crain::BlackHand_code()
     
     dist = 0;
     count =0;
-    dist = 5;
+    dist = 10;
+    
+    
     while((abs(b.position()) > 0) && (count == 0))
     {
-        if((ultra_q.distance_centimeters() < 12))
+        if((ultra_q.distance_centimeters() < 11))
         {
             count++;
         }
@@ -266,7 +268,7 @@ void Crain::BlackHand_code()
     //"""DOWN"""
     up_down(250);
     
-    sleep(1.2);
+    sleep(0.7);
     
     //"""GRAB(CLOSE)"""////////////////////////////////////
     //open_close(130);
@@ -279,7 +281,7 @@ void Crain::BlackHand_code()
     up_down(0);
     
     //"""MOVE TO FINISH"""
-    left_right_FINISH(620);
+    left_right_FINISH(600);
     
     sleep(1);
     
@@ -296,7 +298,7 @@ void Crain::BlackHand_code()
 
 void Crain::left_right(int sp)
 {
-    b.set_speed_sp(70);
+    b.set_speed_sp(100);
     b.set_position_sp(sp);// - left + right
     b.run_to_rel_pos();
     b.set_stop_action("hold");
@@ -305,7 +307,7 @@ void Crain::left_right(int sp)
 
 void Crain::left_right_FINISH(int sp)
 {
-    b.set_speed_sp(100);
+    b.set_speed_sp(200);
     b.set_position_sp(sp);// - left + right
     b.run_to_abs_pos();
     b.set_stop_action("hold");
@@ -341,15 +343,20 @@ void Crain::open_close(int sp)
 
 int main()
 {     
-    Crain crain;
+    Crain *BlackHand = new Crain;
+    
+    //Crain crain;
     while(true){
         
         
-        if(crain.get_touch_pressed()==true){
-            
-            
-            crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
-  
+        //if(crain.get_touch_pressed()==true){
+        if(BlackHand->get_touch_pressed()==true)
+        {
+            BlackHand->BlackHand_code();
+            delete BlackHand;
+            break;
+            //crain.BlackHand_code(); //This line is for example, you should erase this ex_code in your 'real code' 
         }
+        
     }
 }
